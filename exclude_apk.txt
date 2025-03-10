@@ -177,3 +177,11 @@ GoogleDialer_arm64.apk
 Messages_arm64_xxxhdpi.apk
 GoogleContacts.apk
 MtkContacts.apk
+WtModemSar.apk
+WtSarTest.apk
+EuiccGoogle.apk
+MMIGroup_NoIcon.apk
+XMDualCameraCali.apk
+Cit.apk
+Messages_arm64_xxhdpi.apk
+AndroidSystemIntelligence_Infrastructure_arm64.apk
