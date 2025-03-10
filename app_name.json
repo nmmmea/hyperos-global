@@ -144,5 +144,8 @@
   "com.xiaomi.xmsf": "小米服务框架",
   "com.xiaomi.discover": "系统应用升级器",
   "com.xiaomi.midrop": "ShareMe",
+  "com.miui.fmservice": "收音机调频服务",
+  "com.miui.fm": "收音机",
+  "com.miui.videoplayer": "Mi Video",
   "miui.systemui.plugin": "系统界面组件"
 }
