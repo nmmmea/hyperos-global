@@ -196,7 +196,8 @@ def extract_img():
     # 使用 subprocess 模块运行 shell 命令，执行 payload-dumper-go 的命令，从 payload.bin 文件中提取指定镜像文件
     # -c 参数指定最大并发数为 8，-o 指定提取后的文件输出到当前目录下
     # -p 参数指定提取指定镜像，"payload.bin" 为输入文件
-    subprocess.run(["./payload-dumper-go", "-c", "8", "-o","./", "-p", "product,mi_ext", "payload.bin"])
+    subprocess.run(["./payload-dumper-go", "-c", "8", "-o","./", "-p", "product", "payload.bin"])
+    subprocess.run(["./payload-dumper-go", "-c", "8", "-o","./", "-p", "mi_ext", "payload.bin"])
 
 
 def extract_files():
@@ -218,7 +219,7 @@ def extract_files():
 
                     # 建立一个集合，用来判断是否为 Fold 或者 Pad
                     is_fold = {"cetus", "zizhan", "babylon", "goku"}
-                    is_pad = {"nabu", "elish", "enuma", "dagu", "pipa", "liuqin", "yudi", "yunluo", "xun", "sheng", "dizi", "ruan"}
+                    is_pad = {"nabu", "elish", "enuma", "dagu", "pipa", "liuqin", "yudi", "yunluo", "xun", "sheng", "dizi", "ruan", "uke", "muyu"}
                     is_flip = {"ruyi"}
 
                     if device_name in is_fold:
@@ -415,7 +416,7 @@ def update_apk_name():
 
 def delete_files_and_folders():
     """删除指定的文件和文件夹"""
-    files_to_delete = ["payload.bin", "product.img", "mi_ext.img", "app_code_name.json"]
+    files_to_delete = ["payload.bin", "product.img", "app_code_name.json" , "mi_ext.img"]
     folders_to_delete = ["output_apk", "update_apk", "update_name_apk", "product" , "mi_ext"]
 
     for file in files_to_delete:
