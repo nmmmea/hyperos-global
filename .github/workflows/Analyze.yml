@@ -1,57 +1,86 @@
-name: EMRA-For-HyperOS
+name: EMRA For HyperOS
 
 on:
   workflow_dispatch:
     inputs:
       device:
-        description: '设备类型 p/ph/f'
+        description: "设备类型"
         required: true
+        type: choice
+        options:
+        - "Phone"
+        - "Pad"
+        - "Fold"
+        - "Flip"
       link:
-        description: 'ROM 链接'
+        description: "ROM 链接"
         required: true
+      push:
+        description: "上传数据库"
+        required: true
+        type: choice
+        options:
+        - "是"
+        - "否"
       devicename:
-        description: '设备名'
+        description: "设备名"
         required: false
       osversion:
-        description: '系统版本'
+        description: "系统版本"
         required: false
 
 jobs:
-  build:
+  Analyze:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Maximizing storage
-      uses: easimon/maximize-build-space@master
-      with:
-        swap-size-mb: 8192
-        root-reserve-mb: 4096
-        temp-reserve-mb: 4096
-        remove-dotnet: 'true'
-        remove-android: 'true'
-        remove-haskell: 'true'
-
     - name: Checkout code
       uses: actions/checkout@v4
     
     - name: Install dependence
       run: |
         sudo apt-get install -y android-sdk-build-tools
-        pip install apkfile
-        wget -O erofs-utils.zip https://github.com/sekaiacg/erofs-utils/releases/download/v1.7.1-231221/erofs-utils-v1.7.1-g64fa6832-Linux_x86_64-2312211134.zip
-        unzip erofs-utils.zip
-        rm erofs-utils.zip
-        wget -O payload-dumper-go.tar.gz https://github.com/ssut/payload-dumper-go/releases/download/1.2.2/payload-dumper-go_1.2.2_linux_amd64.tar.gz
-        tar -xvf payload-dumper-go.tar.gz
-        rm payload-dumper-go.tar.gz
+        pip install -r requirements.txt
+
+    - name: Download payload-dumper-go
+      uses: robinraju/release-downloader@v1.10
+      with:
+        repository: "ssut/payload-dumper-go"
+        latest: true
+        extract: true
+        fileName: "payload-dumper-go_*_linux_amd64.tar.gz"
+
+    - name: Download extract.erofs
+      uses: robinraju/release-downloader@v1.10
+      with:
+        repository: "sekaiacg/erofs-utils"
+        latest: true
+        extract: true
+        fileName: "erofs-utils-*-Linux_x86_64-*.zip"
+
+    - name: Set permission
+      run: |
+       chmod +x extract.erofs
+       rm *.tar.gz *.zip
 
     - name: Download ROM
       run: |
-        python main.py -d ${{ github.event.inputs.link }}
+        python main.py -d "${{ github.event.inputs.link }}"
 
     - name: Switch device type
       run: |
-        python main.py -t 0 ${{ github.event.inputs.device }}
+        if [ "${{ github.event.inputs.device }}" = "Phone" ]; then
+            python main.py -t 0 ph
+          elif [ "${{ github.event.inputs.device }}" = "Pad" ]; then
+            python main.py -t 0 p
+          elif [ "${{ github.event.inputs.device }}" = "Fold" ]; then
+            python main.py -t 0 f
+          elif [ "${{ github.event.inputs.device }}" = "Flip" ]; then
+            python main.py -t 0 fp
+          else
+            echo "Invalid device specified."
+            exit 1
+          fi
 
     - name: Unzip payload.bin
       run: |
@@ -63,21 +92,18 @@ jobs:
         python main.py -i
         rm payload.bin
     
-    - name: Unzip files
+    - name: Unzip file
       run: |
-        ./extract.erofs -i product.img -x -T8
-        ./extract.erofs -i mi_ext.img -x -T8
-        rm *.img
-    
+        python main.py -f
 
     - name: Remove exclude apk
       run: |
         python main.py -a
 
-    - name: Upload Special_apks
+    - name: Upload special apk
       uses: actions/upload-artifact@v4
       with:
-        name: Special_apks
+        name: Special_apk
         path: |
           output_apk/MIUIScreenRecorder.apk
           output_apk/MIUIScreenRecorderLite.apk
@@ -97,36 +123,56 @@ jobs:
       run: |
         python main.py -m
 
-    - name: Upload app_version.json and app_code.json
+    - name: Upload database
       uses: actions/upload-artifact@v4
       with:
-        name: update_json
+        name: Database
         path: |
           app_version.json
           app_code.json
-    
-    - name: Upload update_apks
+
+    - name: Upload build.prop
       uses: actions/upload-artifact@v4
       with:
-        name: update_apks
+        name: build.prop
+        path: |
+          product/etc/build.prop
+    
+    - name: Upload update apk
+      uses: actions/upload-artifact@v4
+      with:
+        name: Update_apk
         path: |
           update_apk
           update_name_apk
 
-    - name: Update
+    - name: Push database
+      continue-on-error: true
       run: |
         python main.py -t 1 ph
             git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
             git config --global user.name "${GITHUB_ACTOR}"
-        if [ "${{ github.event.inputs.device }}" = "ph" ]; then
+        if [ "${{ github.event.inputs.device }}" = "Phone" ]; then
             git add phone/
-          elif [ "${{ github.event.inputs.device }}" = "p" ]; then
+          elif [ "${{ github.event.inputs.device }}" = "Pad" ]; then
             git add pad/
-          elif [ "${{ github.event.inputs.device }}" = "f" ]; then
+          elif [ "${{ github.event.inputs.device }}" = "Fold" ]; then
             git add fold/
+          elif [ "${{ github.event.inputs.device }}" = "Flip" ]; then
+            git add flip/
           else
-            echo "Invalid device specified."
             exit 1
           fi
-        git commit -m "Update Version ${{ github.event.inputs.devicename }} ${{ github.event.inputs.osversion }}"
-        git push origin main
+        if [ "${{ github.event.inputs.push }}" = "是" ]; then
+            git commit -m "Database：Update ${{ github.event.inputs.devicename }} ${{ github.event.inputs.osversion }} by Actions"
+            git push
+          elif [ "${{ github.event.inputs.push }}" = "否" ]; then
+            exit 0
+          else
+            exit 0
+          fi
+          
+    - name: Get Info
+      continue-on-error: true
+      run: |
+        python main.py -o
