@@ -168,6 +168,11 @@ VelvetCtS.apk
 Wellbeing.apk
 HotwordEnrollmentXGoogleHEXAGON_WIDEBAND.apk
 HotwordEnrollmentYGoogleHEXAGON_WIDEBAND.apk
+messaging.apk
 PhotoTable.apk
 HealthConnectStub.apk
 Velvet.apk
+Dialer.apk
+GoogleDialer_arm64.apk
+Messages_arm64_xxxhdpi.apk
+GoogleContacts.apk
