@@ -176,3 +176,4 @@ Dialer.apk
 GoogleDialer_arm64.apk
 Messages_arm64_xxxhdpi.apk
 GoogleContacts.apk
+MtkContacts.apk
