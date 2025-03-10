@@ -166,3 +166,6 @@ PersonalSafety.apk
 Phonesky.apk
 VelvetCtS.apk
 Wellbeing.apk
+HotwordEnrollmentXGoogleHEXAGON_WIDEBAND.apk
+HotwordEnrollmentYGoogleHEXAGON_WIDEBAND.apk
+PhotoTable.apk
