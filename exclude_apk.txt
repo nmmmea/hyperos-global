@@ -169,3 +169,5 @@ Wellbeing.apk
 HotwordEnrollmentXGoogleHEXAGON_WIDEBAND.apk
 HotwordEnrollmentYGoogleHEXAGON_WIDEBAND.apk
 PhotoTable.apk
+HealthConnectStub.apk
+Velvet.apk
