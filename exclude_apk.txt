@@ -209,3 +209,14 @@ com.amazon.appmanager.hgie.apk
 com.amazon.appmanager.hg.apk
 ChiliCompanionFile.apk
 XMSFKeeperAll.apk
+Velvet_CtS.apk
+linktowindows.apk
+SpeechRecognitionAndSynthesisFromGoogle.apk
+GoogleContacts_arm64.apk
+MobileFeliCaMenuMainApp.apk
+Turbo.apk
+MobileFeliCaSettingApp.apk
+MobileFeliCaWebPluginBoot.apk
+MobileFeliCaClient.apk
+AICore.apk
+deviceintegrationservice.apk
