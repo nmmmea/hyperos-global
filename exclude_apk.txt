@@ -220,3 +220,6 @@ MobileFeliCaWebPluginBoot.apk
 MobileFeliCaClient.apk
 AICore.apk
 deviceintegrationservice.apk
+GoogleAssistant.apk
+BookingAffiliateInfo.apk
+com.amazon.appmanager.ti.apk
