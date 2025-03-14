@@ -225,3 +225,6 @@ BookingAffiliateInfo.apk
 com.amazon.appmanager.ti.apk
 NfcNci_emerald.apk
 n6AutoTest.apk
+DiagLogger.apk
+SarController.apk
+HQCit.apk
