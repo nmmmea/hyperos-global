@@ -223,3 +223,5 @@ deviceintegrationservice.apk
 GoogleAssistant.apk
 BookingAffiliateInfo.apk
 com.amazon.appmanager.ti.apk
+NfcNci_emerald.apk
+n6AutoTest.apk
