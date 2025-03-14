@@ -228,3 +228,5 @@ n6AutoTest.apk
 DiagLogger.apk
 SarController.apk
 HQCit.apk
+HotwordEnrollmentXGoogleRISCV_WIDEBAND.apk
+HotwordEnrollmentYGoogleRISCV_WIDEBAND.apk
