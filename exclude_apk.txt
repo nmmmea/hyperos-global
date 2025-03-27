@@ -230,3 +230,9 @@ SarController.apk
 HQCit.apk
 HotwordEnrollmentXGoogleRISCV_WIDEBAND.apk
 HotwordEnrollmentYGoogleRISCV_WIDEBAND.apk
+Messages_arm64_xhdpi.apk
+NQNfcNci_moon.apk
+o6AutoTest.apk
+LogManager.apk
+HotwordEnrollmentOKGoogleRISCV.apk
+LatinCotaService.apk
