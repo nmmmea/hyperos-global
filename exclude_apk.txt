@@ -263,3 +263,7 @@ SettingsProvider__missi__auto_generated_rro_product.apk
 GmsConfigOverlayPersonalSafety.apk
 framework-res__missi__auto_generated_rro_product.apk
 AndroidPlatformServicesGo.apk
+Messages_arm64_hdpi.apk
+Longcheer_GFTest_C3F2.apk
+Longcheer_factoryTest_C3F2.apk
+Longcheer_SensorTestTool.apk
