@@ -39,6 +39,7 @@ jobs:
     
     - name: Install dependence
       run: |
+        sudo apt-get update
         sudo apt-get install -y android-sdk-build-tools
         pip install -r requirements.txt
 
@@ -109,6 +110,7 @@ jobs:
           output_apk/MIUIScreenRecorderLite.apk
           output_apk/MIUISecurityCenter.apk
           output_apk/MiuiHome.apk
+          output_apk/MIUIWeather.apk
           output_apk/AiAsstVision.apk
           
     - name: Get version
